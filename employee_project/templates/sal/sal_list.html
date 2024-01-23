@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-color: aquamarine;
+        }
+
+        .lo,
+        h5 {
+            margin: 0 0 0 85%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 align="center">Salary</h1>
+
+
+
+    <div class="container">
+
+        <a href="/sal_add" class="btn btn-danger mt-5">add</a>
+
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-hover mt-4">
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Start_Date</th>
+                            <th>End_Date</th>
+                            <th>Salary</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for x in data %}
+                        <tr>
+                            <td>{{x.employee}}</td>
+                            <td>{{x.start_date}}</td>
+                            <td>{{x.end_date}}</td>
+                            <td>{{x.amount}}</td>
+                            <td><a href="/sal_up/{{x.id}}" class="btn btn-success">update</a></td>
+                            <td><a href="/sal_del/{{x.id}}" class="btn btn-danger">delete</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4 mt-3">
+                <form method="post" action="/sal_cal">
+                    {% csrf_token %}
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" name="start_date" class="mb-2" required><br>
+                    <label for="end_date">End Date:</label>
+                    <input type="date" name="end_date" required><br>
+                    <button type="submit" class="btn btn-dark mt-3">Generate Report</button>
+                </form>
+                {% if department_costs %}
+                <h4>Department-wise Cost Report</h4>
+                <table>
+                    <tr>
+                        <th>Department</th>
+                        <th>Total Cost</th>
+                    </tr>
+                    {% for cost in department_costs %}
+                    <tr>
+                        <td>{{ cost.employee__department__name }}</td>
+                        <td>{{ cost.total_cost }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

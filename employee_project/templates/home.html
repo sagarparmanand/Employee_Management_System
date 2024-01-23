@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row mt-5">
+
+            <div class="col-md-2 mt-5">
+                <a href="/emp" class="btn btn-dark my-3">Employee Details</a> <br>
+                <a href="/dep" class="btn btn-dark mb-3">Department Details</a><br>
+                <a href="/sal" class="btn btn-dark">Salary Details</a>
+            </div>
+            <div class="col-md-6">
+                <h3>reporting</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Designamtion</th>
+                            <th>Reporting Manager</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in data %}
+                        {% if x.name != 'admin' %}
+                        <tr>
+                            <td>{{x.name}}</td>
+                            <td>{{x.designation}}</td>
+                            <td>{{x.reporting_manager}}</td>
+                            <td>{{x.department}}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3 ms-4">
+                <h4 class="mt-2">Department Total Salary</h4>
+
+                <table class="table table-hover mt-3 border-dark">
+                    <tr>
+                        <th>Department</th>
+                        <th>Total Salary</th>
+                    </tr>
+                    {% for x in tot %}
+                    {% if x.name != 'All' %}
+                    <tr>
+                        <td>{{ x.name }}</td>
+                        <td>{{ x.TotalSalary }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

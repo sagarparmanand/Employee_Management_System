@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <title>Add</title>
+    <style>
+        body {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 align="center">Update Details</h1>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form method="post" enctype="multipart/form-data" class="mb-5">
+                    {% csrf_token %}
+
+                    {% if err %}
+                    <div class="alert alert-danger">
+                        <h3>{{err}}</h3>
+                    </div>
+                    {% endif %}
+
+                    {% if data %}
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="uname" value="{{data.name}}"
+                            id="exampleInputEmail1" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" value="{{data.email}}"
+                            id="exampleInputEmail1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Address</label>
+                        <input type="text" class="form-control" name="uadd" value="{{data.address}}"
+                            id="exampleInputEmail1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Designation</label>
+                        <select name="des" id="">
+                            {% if data.designation == 'Associate' %}
+                            <option value="Associate" selected>Associate</option>
+                            <option value="TL">Team Leader</option>
+                            <option value="Manager">Manager</option>
+                            {% elif data.designation == 'TL' %}
+                            <option value="Associate">Associate</option>
+                            <option value="TL" selected>Team Leader</option>
+                            <option value="Manager">Manager</option>
+                            {% else %}
+                            <option value="Associate">Associate</option>
+                            <option value="TL">Team Leader</option>
+                            <option value="Manager" selected>Manager</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Reporting Manager</label>
+                        <select name="rep_man" id="">
+
+                            {% for x in ddata %}
+                            <option value="{{x.id}}">{{x.name}}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Department</label>
+                        <select name="dep" id="">
+                            {% for j in idata %}
+                            <option value="{{j.id}}">{{j.name}}</option>
+                            {% endfor %}>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
